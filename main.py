@@ -20,18 +20,18 @@ from services.user import get_current_active_user
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-ml_models = {}
-db_name = {}
-model_args = load_yml_file("./rag/llm2config.yml")
+# ml_models = {}
+# db_name = {}
+# model_args = load_yml_file("./rag/llm2config.yml")
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Load the ML model
-    llm = load_lamma_cpp(model_args)
-    ml_models["choices"] = llm
-    yield
-    # Clean up the ML models and release the resources
-    ml_models.clear()
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#     # Load the ML model
+#     llm = load_lamma_cpp(model_args)
+#     ml_models["choices"] = llm
+#     yield
+#     # Clean up the ML models and release the resources
+#     ml_models.clear()
 
 app = FastAPI(
     lifespan=lifespan,
@@ -41,7 +41,8 @@ app = FastAPI(
 origins = [
     "http://localhost:3000",
     "https://green-sand-0980ce503.4.azurestaticapps.net",
-    "http://20.82.177.97:3000"    
+    "http://20.82.177.97:3000",
+    "https://yellow-wave-027f02903.5.azurestaticapps.net"
 ]
 
 app.add_middleware(
